@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+  <bean id="org.beangle.orm.hibernate.DefaultTableNamingStrategy" class="org.beangle.orm.hibernate.DefaultTableNamingStrategy">
+    <property name="resources">
+      <value>;classpath*:META-INF/beangle/table_local.properties;classpath:beangle/table_local.properties</value>
+    </property>
+  </bean>
+</beans>
