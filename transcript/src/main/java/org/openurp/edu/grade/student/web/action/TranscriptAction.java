@@ -97,36 +97,30 @@ public class TranscriptAction extends BaseAction {
     List<ExchangeInfoCourse> eicList = this.entityDao.search(builder);
     for (TranscriptDataProvider provider : this.dataProviderRegistry.getProviders((String) options.get("providers"))) {
       if (provider.getDataName().equals("grades")) {
-        ExchangeInfoCourse info;
-        List<CourseGrade> cgs;
         Map<Student, List<Long>> subCourseMap = CollectUtils.newHashMap();
         if ((provider instanceof TranscriptPublishedGradeProvider)) {
           Map<Student, List<CourseGrade>> stdGradeMaps = ((TranscriptPublishedGradeProvider) provider).getDatas(students, options, subCourseMap);
-          Iterator localIterator2;
-          if (CollectUtils.isNotEmpty(eicList)) {
-            for (localIterator2 = eicList.iterator(); localIterator2.hasNext(); ) {
-              info = (ExchangeInfoCourse) localIterator2.next();
-              cgs = (List) stdGradeMaps.get(info.getStudent());
-              Set<CourseSemester> cslist = info.getCslist();
-              for (CourseSemester cs : cslist) {
-                Course course = cs.getCourse();
-                boolean flag = true;
-                for (CourseGrade courseGrade : cgs) {
-                  if (((Long) courseGrade.getCourse().getId()).longValue() == ((Long) course.getId()).longValue()) {
-                    flag = false;
-                    break;
-                  }
+          for (ExchangeInfoCourse info : eicList) {
+            List<CourseGrade> cgs = (List) stdGradeMaps.get(info.getStudent());
+            Set<CourseSemester> cslist = info.getCslist();
+            for (CourseSemester cs : cslist) {
+              Course course = cs.getCourse();
+              boolean flag = true;
+              for (CourseGrade courseGrade : cgs) {
+                if (((Long) courseGrade.getCourse().getId()).longValue() == ((Long) course.getId()).longValue()) {
+                  flag = false;
+                  break;
                 }
-                if (flag) {
-                  CourseGrade grade = new CourseGrade();
-                  grade.setCourse(course);
-                  grade.setSemester(cs.getSemester());
-                  grade.setStd(info.getStudent());
-                  grade.setScoreText("免修");
-                  grade.setScore(Float.valueOf(0.0F));
-                  grade.setCourseTakeType((CourseTakeType) this.codeService.getCode(CourseTakeType.class, Integer.valueOf(1)));
-                  cgs.add(grade);
-                }
+              }
+              if (flag) {
+                CourseGrade grade = new CourseGrade();
+                grade.setCourse(course);
+                grade.setSemester(cs.getSemester());
+                grade.setStd(info.getStudent());
+                grade.setScoreText("免修");
+                grade.setScore(Float.valueOf(0.0F));
+                grade.setCourseTakeType((CourseTakeType) this.codeService.getCode(CourseTakeType.class, Integer.valueOf(1)));
+                cgs.add(grade);
               }
             }
           }
@@ -143,8 +137,8 @@ public class TranscriptAction extends BaseAction {
     put("RESTUDY", Integer.valueOf(3));
     put("school", me.getProject().getSchool());
     put("students", students);
-    put("GA", new GradeType( GradeType.GA_ID));
-    put("MAKEUP_GA", new GradeType( GradeType.MAKEUP_GA_ID));
+    put("GA", new GradeType(GradeType.GA_ID));
+    put("MAKEUP_GA", new GradeType(GradeType.MAKEUP_GA_ID));
     put("printFlag", Boolean.valueOf(true));
     String format = get("format");
     Project project = me.getProject();

@@ -7,13 +7,12 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body  style="font-size:13px;">
-<div style="height:18mm">&nbsp;</div>
-[#assign fontsize=10/]
+<body  style="font-size:8pt;">
     <style>
         .semester{
             text-align:center;
-            font-size:16px;
+            font-size:9.5pt;
+            width:25%;
             font-family:微软雅黑;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
@@ -22,7 +21,7 @@
         }
         .blank{
             text-align:center;
-            font-size:16px;
+            font-size:9.5pt;
             font-family:微软雅黑;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -32,7 +31,7 @@
         }
         .tableclass{
             border-collapse:collapse;
-            font-size:14px;
+            font-size:8pt;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -40,19 +39,19 @@
         }
         .titlecss{
             text-align:center;
-            font-size:14px;
+            font-size:8pt;
             width:250px;
             font-family:微软雅黑;
         }
         .titlescore{
         	text-align:center;
-            font-size:14px;
+            font-size:8pt;
             font-family:微软雅黑;
             width:40px;
         }
         .title{
             text-align:center;
-            font-size:14px;
+            font-size:8pt;
             font-family:微软雅黑;
             width:70px;
         }
@@ -67,10 +66,10 @@
 [#list students as std]
    [#assign schoolName]${school.name}[/#assign]
     [#assign stdTypeName = std.stdType.name /]
-    <div  style="width:1460px;padding-left:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
+    <div  style="width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
     <table  width="100%" valign='top' >
-        <tr><td colspan="5" align="center"><h1>${schoolName}${(std.state.grade + "级")?replace("-3级","(春季)级")?replace("-9级","(秋季)级")}${stdTypeName}学生成绩单表</h1></td></tr>
-        <tr style="font-size:14px">
+        <tr><td colspan="5" align="center"><h2 style="margin:4mm 0mm 4mm 0mm">${schoolName}${(std.state.grade + "级")?replace("-3级","(春季)级")?replace("-9级","(秋季)级")}${stdTypeName}学生成绩单表</h2></td></tr>
+        <tr style="font-size:8pt">
          <td >层&nbsp;&nbsp;&nbsp;&nbsp;次：${std.level.name}</td>
          <td >专&nbsp;&nbsp;&nbsp;&nbsp;业：${(std.major.name)?default("")}</td>
          <td >姓&nbsp;&nbsp;&nbsp;&nbsp;名：${std.name}</td>
@@ -81,7 +80,7 @@
     <table width='100%' border="1" id="transcript${std.id}" class="tableclass">
             [#list 1..maxRows as row]
                 [#--此处的tr和td中不能有空格，否则影响js中的nextSibling--]
-                <tr height='20px'>[#list 0..(maxCols-1) as col]<td id="transcript${std.id}_${(col/colmns)?int*colmns*maxRows+(col%colmns)+(row-1)*colmns}" [#if (col+1)%colmns==0] style="border-right:2px #000 solid;" [/#if] [#if col>colmns][#if col%colmns==0 ] width="250px"  [#else]   width="50px" [/#if][/#if]>&nbsp;</td>[/#list]</tr>
+                <tr style='min-height:4mm'>[#list 0..(maxCols-1) as col]<td id="transcript${std.id}_${(col/colmns)?int*colmns*maxRows+(col%colmns)+(row-1)*colmns}" [#if (col+1)%colmns==0] style="border-right:2px #000 solid;" [/#if] [#if col>colmns || col=colmns][#if col%colmns==0 ] width="250px"  [#else]   width="50px" [/#if][/#if]>&nbsp;</td>[/#list]</tr>
             [/#list]
     </table>
     <script>
@@ -242,7 +241,7 @@
         document.getElementById(table+"_"+(index+1)).className="tds";
         document.getElementById(table+"_"+(index+2)).className="tds";
         document.getElementById(table+"_"+(index+1)).innerHTML=credit;
-       	document.getElementById(table+"_"+(index+2)).innerHTML=(score+"<font style='font-size:10px; color:red'>"+typeStr+"</font>");
+       	document.getElementById(table+"_"+(index+2)).innerHTML=(score+"<font style='font-size:0.8em; color:red'>"+typeStr+"</font>");
         index+=colmns;
         if (blankRow<row){
             blankRow=row;
@@ -293,22 +292,22 @@
         '${courseGrade.courseTakeType.code!}', '${code}', ${examState}, '${subCourseCode}', '${courseGrade.course.id}', '${courseGrade.semester.schoolYear}');
     [/#list]
     addBlank("transcript${std.id}");
-        function removeTr(){
-            blankRow=blankRow+1;
-            if(${maxRows}-blankRow>0){
-                var t1=document.getElementById("transcript${std.id}");
-                var maxr =${maxRows};
-                for(var i=0;i<=maxr;i++){
-                    if(i>blankRow){
-                        t1.deleteRow(blankRow);
-                    }
+    function removeTr(){
+        blankRow=blankRow+1;
+        if(${maxRows}-blankRow>0){
+            var t1=document.getElementById("transcript${std.id}");
+            var maxr =${maxRows};
+            for(var i=0;i<=maxr;i++){
+                if(i>blankRow){
+                    t1.deleteRow(blankRow);
                 }
             }
         }
-     removeTr();
+    }
+    removeTr();
 
     </script>
-  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:${fontsize+2}px;">
+  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:7pt;">
 	<tr>
 	<td align='left' id="TD_TC">总学分:${(gpas.get(std).credits)!}</td>
 	<td align='left' id="TD_GPA">平均绩点:${(gpas.get(std).gpa)!}</td>

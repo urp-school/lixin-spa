@@ -7,13 +7,13 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body  style="font-size:13px;">
-[#assign fontsize=10/]
+<body  style="font-size:8pt;">
 [#assign FiveLevelNames={'优':'Excellent','良':'Good','中':'Medium','及格':'Pass','不及格':'Fail'} /]
     <style>
         .semester{
             text-align:center;
-            font-size:${fontsize+2}px;
+            font-size:8pt;
+            width:25%;
             font-family:微软雅黑;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
@@ -22,7 +22,7 @@
         }
         .blank{
             text-align:center;
-            font-size:${fontsize}px;
+            font-size:8pt;
             font-family:微软雅黑;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -32,7 +32,7 @@
         }
         .tableclass{
             border-collapse:collapse;
-            font-size:${fontsize}px;
+            font-size:7.5pt;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -40,19 +40,19 @@
         }
         .titlecss{
             text-align:center;
-            font-size:${fontsize}px;
+            font-size:7.5pt;
             width:250px;
             font-family:微软雅黑;
         }
         .title{
             text-align:center;
-            font-size:${fontsize}px;
+            font-size:7.5pt;
             font-family:微软雅黑;
             width:50px;
         }
         .credits{
 			text-align:center;
-			font-size:${fontsize-2}px;
+			font-size:7pt;
 			font-family:微软雅黑;
 			width:35px;
 	    }
@@ -65,10 +65,10 @@
 [#list students as std]
     [#assign schoolName]${school.enName!}[/#assign]
     [#assign stdTypeName = std.level.name /]
-    <div  style="width:1460px;padding-left:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
+    <div  style="width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
     <table  width="100%" valign='top' >
-        <tr><td colspan="5" align="center"><h2>${schoolName} &nbsp;${std.state.grade}[#if ((std.beginOn?string("MM"))!"09")=="09"](Fall) Grade[#else](Spring) Grade[/#if] Academic Achievements</h2></td></tr>
-        <tr style="font-size:14px">
+        <tr><td colspan="5" align="center"><h2 style="margin:4mm 0mm 4mm 0mm">${schoolName} &nbsp;${std.state.grade}[#if ((std.beginOn?string("MM"))!"09")=="09"](Fall) Grade[#else](Spring) Grade[/#if] Academic Achievements</h2></td></tr>
+        <tr style="font-size:8pt">
          <td>Education：[#if stdTypeName?contains("本科")]Undergraduate[#elseif stdTypeName?contains("专升本")]Top-up Program[#else]Junior College[/#if]</td>
          <td>&nbsp;&nbsp;[#if Minor??]Minor[#else]Major[/#if]：${std.state.major.enName!}</td>
          <td>&nbsp;Student No：${std.user.code}</td>
@@ -79,7 +79,7 @@
     <table width='100%' border="1" id="transcript${std.id}" class="tableclass">
             [#list 1..maxRows as row]
                 [#--此处的tr和td中不能有空格，否则影响js中的nextSibling--]
-                <tr>[#list 0..(maxCols-1) as col]<td id="transcript${std.id}_${(col/colmns)?int*colmns*maxRows+(col%colmns)+(row-1)*colmns}" [#if (col+1)%colmns==0] style="border-right:2px #000 solid;" [/#if] [#if col>colmns][#if col%colmns==0 ] width="250px"  [#else]   width="50px" [/#if][/#if]>&nbsp;</td>[/#list]</tr>
+                <tr>[#list 0..(maxCols-1) as col]<td id="transcript${std.id}_${(col/colmns)?int*colmns*maxRows+(col%colmns)+(row-1)*colmns}" [#if (col+1)%colmns==0] style="border-right:2px #000 solid;" [/#if] [#if col>colmns || col=colmns][#if col%colmns==0 ] width="22%" [/#if][/#if]>&nbsp;</td>[/#list]</tr>
             [/#list]
     </table>
     <script>
@@ -155,7 +155,7 @@
         document.getElementById(table+"_"+(index)).className="titlecss";
         document.getElementById(table+"_"+(index)).innerHTML="Course Name";
         document.getElementById(table+"_"+(index+1)).className="title";
-        document.getElementById(table+"_"+(index+1)).innerHTML="Credits";
+        document.getElementById(table+"_"+(index+1)).innerHTML="<span style='font-size:0.8em'>Credits</span>";
         document.getElementById(table+"_"+(index+2)).className="title";
         document.getElementById(table+"_"+(index+2)).innerHTML="Score";
         index+=colmns;
@@ -240,7 +240,7 @@
         document.getElementById(table+"_"+(index+1)).className="tds";
         document.getElementById(table+"_"+(index+2)).className="tds";
         document.getElementById(table+"_"+(index+1)).innerHTML=credit;
-        document.getElementById(table+"_"+(index+2)).innerHTML=(score+"<font style='font-size:10px; color:red'>"+typeStr+"</font>");
+        document.getElementById(table+"_"+(index+2)).innerHTML=(score+"<font style='font-size:0.8em; color:red'>"+typeStr+"</font>");
         index+=colmns;
         if (blankRow<row){
             blankRow=row;
@@ -305,7 +305,7 @@
         }
      removeTr();
     </script>
-  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:${fontsize+2}px;">
+  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:8pt;">
 	<tr>
 	<td align='left' id="TD_TC">Credits:${(gpas.get(std).credits)!}</td>
 	<td align='left' id="TD_GPA">GPA:${(gpas.get(std).gpa)!}</td>

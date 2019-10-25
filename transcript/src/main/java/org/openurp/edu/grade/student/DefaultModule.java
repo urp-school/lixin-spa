@@ -19,6 +19,7 @@
 package org.openurp.edu.grade.student;
 
 import org.beangle.commons.inject.bind.AbstractBindModule;
+import org.openurp.edu.grade.course.service.impl.PassedGradeFilter;
 import org.openurp.edu.grade.student.web.action.TranscriptAction;
 
 public class DefaultModule extends AbstractBindModule {
