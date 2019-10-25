@@ -1,5 +1,5 @@
 [#ftl]
-[@b.head /]
+<!DOCTYPE html>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -7,13 +7,14 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body>
+<body  style="font-size:13px;">
+<div style="height:18mm">&nbsp;</div>
 [#assign fontsize=10/]
     <style>
         .semester{
             text-align:center;
             font-size:16px;
-            font-family:楷体;
+            font-family:微软雅黑;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -22,7 +23,7 @@
         .blank{
             text-align:center;
             font-size:16px;
-            font-family:楷体;
+            font-family:微软雅黑;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
         }
@@ -41,18 +42,18 @@
             text-align:center;
             font-size:14px;
             width:250px;
-            font-family:楷体;
+            font-family:微软雅黑;
         }
         .titlescore{
         	text-align:center;
             font-size:14px;
-            font-family:楷体;
+            font-family:微软雅黑;
             width:40px;
         }
         .title{
             text-align:center;
             font-size:14px;
-            font-family:楷体;
+            font-family:微软雅黑;
             width:70px;
         }
     </style>
@@ -320,7 +321,6 @@
 [/#list]
 </body>
 </html>
-[@b.foot /]
 [#function exchangeCourse std,course,semester]
 	[#assign flag=false]
 		[#if eicList??]

@@ -1,5 +1,5 @@
 [#ftl]
-[@b.head /]
+<!DOCTYPE html>
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html;charset=utf-8" />
@@ -7,14 +7,14 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body>
+<body  style="font-size:13px;">
 [#assign fontsize=10/]
 [#assign FiveLevelNames={'优':'Excellent','良':'Good','中':'Medium','及格':'Pass','不及格':'Fail'} /]
     <style>
         .semester{
             text-align:center;
             font-size:${fontsize+2}px;
-            font-family:楷体;
+            font-family:微软雅黑;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -23,7 +23,7 @@
         .blank{
             text-align:center;
             font-size:${fontsize}px;
-            font-family:楷体;
+            font-family:微软雅黑;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
         }
@@ -42,18 +42,18 @@
             text-align:center;
             font-size:${fontsize}px;
             width:250px;
-            font-family:楷体;
+            font-family:微软雅黑;
         }
         .title{
             text-align:center;
             font-size:${fontsize}px;
-            font-family:楷体;
+            font-family:微软雅黑;
             width:50px;
         }
         .credits{
 			text-align:center;
 			font-size:${fontsize-2}px;
-			font-family:楷体;
+			font-family:微软雅黑;
 			width:35px;
 	    }
 	</style>
@@ -318,7 +318,6 @@
 [/#list]
 </body>
 </html>
-[@b.foot /]
 [#function exchangeCourse std,course,semester]
 	[#assign flag=false]
 		[#if eicList??]
