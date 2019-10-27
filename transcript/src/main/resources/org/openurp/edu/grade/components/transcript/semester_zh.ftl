@@ -7,11 +7,11 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body  style="font-size:8pt;">
+<body  style="font-size:9pt;padding:10mm 10mm 10mm 10mm">
     <style>
         .semester{
             text-align:center;
-            font-size:9.5pt;
+            font-size:10.5pt;
             width:25%;
             font-family:微软雅黑;
             border-top:2px #000 solid;
@@ -21,7 +21,7 @@
         }
         .blank{
             text-align:center;
-            font-size:9.5pt;
+            font-size:10.5pt;
             font-family:微软雅黑;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -31,7 +31,7 @@
         }
         .tableclass{
             border-collapse:collapse;
-            font-size:8pt;
+            font-size:9pt;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -39,19 +39,19 @@
         }
         .titlecss{
             text-align:center;
-            font-size:8pt;
+            font-size:9pt;
             width:250px;
             font-family:微软雅黑;
         }
         .titlescore{
         	text-align:center;
-            font-size:8pt;
+            font-size:9pt;
             font-family:微软雅黑;
             width:40px;
         }
         .title{
             text-align:center;
-            font-size:8pt;
+            font-size:9pt;
             font-family:微软雅黑;
             width:70px;
         }
@@ -65,10 +65,10 @@
 [#list students as std]
    [#assign schoolName]${school.name}[/#assign]
     [#assign stdTypeName = std.stdType.name /]
-    <div  style="width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
+    <div  style="min-width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
     <table  width="100%" valign='top' >
         <tr><td colspan="5" align="center"><h2 style="margin:4mm 0mm 4mm 0mm">${schoolName}${(std.state.grade + "级")?replace("-3级","(春季)级")?replace("-9级","(秋季)级")}${stdTypeName}学生成绩单表</h2></td></tr>
-        <tr style="font-size:8pt">
+        <tr style="font-size:9pt">
          <td >层&nbsp;&nbsp;&nbsp;&nbsp;次：${std.level.name}</td>
          <td >专&nbsp;&nbsp;&nbsp;&nbsp;业：${(std.major.name)?default("")}</td>
          <td >姓&nbsp;&nbsp;&nbsp;&nbsp;名：${std.name}</td>
@@ -87,7 +87,7 @@
     var semesterCourses={};
     var nowsemsenumber=0;
     var blankRow=0;
-    var semesterSet = new Set();
+    var semesterMap = {}
     var semesterList=[];
     var colmns=3;//课程，学分，成绩
     var maxRows=${maxRows}
@@ -159,9 +159,9 @@
     }
     //统计学期总个数，并且去掉重复元素
     function semsernumber(n){
-       if(!semesterSet.has(n)){
+       if(typeof semesterMap['c'+n] == "undefined"){
          semesterList.push('c'+n);
-         semesterSet.add(n);
+         semesterMap['c'+n]=1;
        }
     }
 
@@ -215,13 +215,13 @@
         if(row>maxRows || col >= ${maxCols}) {
             return;
         }
-        if(semesterSet.size <= 8 &&( nowsemsenumber==3 || nowsemsenumber ==5 || nowsemsenumber ==7)){
+        if(semesterList.length <= 8 &&( nowsemsenumber==3 || nowsemsenumber ==5 || nowsemsenumber ==7)){
             //转到下一列的第一行
             addBlank(table);
             index=maxRows*(col+colmns);
             if(calcRow(index)>maxRows|| calcCol(index) >= ${maxCols}) {return;}
         }
-        if( semesterSet.size > 8 && (maxRows - row-1) < myCourseCnt){
+        if( semesterList.length > 8 && (maxRows - row-1) < myCourseCnt){
             //转到下一列的第一行
             addBlank(table);
             index=maxRows*(col+colmns);
@@ -353,7 +353,7 @@
     }
     removeTr(${maxRows});
     </script>
-  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:7pt;">
+  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:8pt;">
 	<tr>
 	<td align='left' id="TD_TC">总学分:${(gpas.get(std).credits)!}</td>
 	<td align='left' id="TD_GPA">平均绩点:${(gpas.get(std).gpa)!}</td>

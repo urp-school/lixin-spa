@@ -7,7 +7,7 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body  style="font-size:8pt;">
+<body  style="font-size:8pt;padding:10mm 10mm 10mm 10mm">
 [#assign FiveLevelNames={'优':'Excellent','良':'Good','中':'Medium','及格':'Pass','不及格':'Fail'} /]
     <style>
         .semester{
@@ -65,7 +65,7 @@
 [#list students as std]
     [#assign schoolName]${school.enName!}[/#assign]
     [#assign stdTypeName = std.level.name /]
-    <div  style="width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
+    <div  style="min-width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
     <table  width="100%" valign='top' >
         <tr><td colspan="5" align="center"><h2 style="margin:4mm 0mm 4mm 0mm">${schoolName} &nbsp;${std.state.grade}[#if ((std.beginOn?string("MM"))!"09")=="09"](Fall) Grade[#else](Spring) Grade[/#if] Academic Achievements</h2></td></tr>
         <tr style="font-size:8pt">
@@ -87,7 +87,7 @@
     var semesterCourses={};
     var nowsemsenumber=0;
     var blankRow=0;
-    var semesterSet = new Set();
+    var semesterMap = {};
     var semesterList=[];
     var colmns=3;//课程，学分，成绩
     var maxRows=${maxRows}
@@ -159,9 +159,9 @@
     }
     //统计学期总个数，并且去掉重复元素
     function semsernumber(n){
-       if(!semesterSet.has(n)){
+       if(typeof semesterMap['c'+n] == "undefined"){
          semesterList.push('c'+n);
-         semesterSet.add(n);
+         semesterMap['c'+n]=1;
        }
     }
 
@@ -215,13 +215,13 @@
         if(row>maxRows || col >= ${maxCols}) {
             return;
         }
-        if(semesterSet.size <= 8 &&( nowsemsenumber==3 || nowsemsenumber ==5 || nowsemsenumber ==7)){
+        if(semesterList.length <= 8 &&( nowsemsenumber==3 || nowsemsenumber ==5 || nowsemsenumber ==7)){
             //转到下一列的第一行
             addBlank(table);
             index=maxRows*(col+colmns);
             if(calcRow(index)>maxRows|| calcCol(index) >= ${maxCols}) {return;}
         }
-        if( semesterSet.size > 8 && (maxRows - row-1) < myCourseCnt){
+        if( semesterList.length > 8 && (maxRows - row-1) < myCourseCnt){
             //转到下一列的第一行
             addBlank(table);
             index=maxRows*(col+colmns);
