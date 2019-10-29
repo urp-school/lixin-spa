@@ -26,6 +26,7 @@ import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.Project;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
 import org.openurp.edu.grade.app.model.ReportTemplate;
 import org.openurp.edu.grade.app.service.ReportTemplateService;
@@ -124,6 +125,18 @@ public class TranscriptAction extends BaseAction {
               }
             }
           }
+
+          Map<Student, Map<Semester, Integer>> semesterCounts = CollectUtils.newHashMap();
+          for (Map.Entry<Student, List<CourseGrade>> entry : stdGradeMaps.entrySet()) {
+            Map<Semester, Integer> semesterCount = CollectUtils.newHashMap();
+            semesterCounts.put(entry.getKey(),semesterCount);
+            for (CourseGrade g : entry.getValue()) {
+              semesterCount.compute(g.getSemester(), (s, o) -> {
+                return (o == null) ? 1 : o.intValue() + 1;
+              });
+            }
+          }
+          put("semesterCounts", semesterCounts);
           put("grades", stdGradeMaps);
           put("subCourseMap", subCourseMap);
         }

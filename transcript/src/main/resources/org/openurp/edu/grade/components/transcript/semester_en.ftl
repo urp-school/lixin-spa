@@ -7,12 +7,46 @@
   <meta http-equiv="cache-control" content="no-cache"/>
   <meta http-equiv="expires" content="0"/>
 </head>
-<body  style="font-size:8pt;padding:10mm 10mm 10mm 10mm">
+<body>
 [#assign FiveLevelNames={'优':'Excellent','良':'Good','中':'Medium','及格':'Pass','不及格':'Fail'} /]
+
+[#assign semesterFontSize=8/]
+[#assign columTitleFontSize=7.5/]
+[#assign contentFontSize=7.5/]
+
+[#--计算8学期以内的成绩，每列的数目--]
+[#assign semesterCount = semesterCounts.get(students?first)/]
+[#assign semesters=semesterCount?keys?sort_by('beginOn')/]
+[#if semesters?size < 9 ]
+    [#assign maxColumn=0/]
+    [#assign columLength=0/]
+    [#list semesters as s]
+       [#assign columLength = columLength + semesterCount.get(s)/]
+       [#if s_index % 2 ==1]
+        [#if columLength > maxColumn]
+           [#assign maxColumn=columLength/]
+        [/#if]
+        [#assign columLength=0/]
+       [/#if]
+    [/#list]
+    [#if maxColumn > 30 || maxColumn == 30 ]
+        [#assign semesterFontSize=7.5/]
+        [#assign columTitleFontSize=7/]
+        [#assign contentFontSize=7/]
+    [/#if]
+[/#if]
     <style>
+        body{
+          font-kerning: normal;
+          text-rendering: optimizeLegibility;
+          font-family:微软雅黑;
+          font-size:${semesterFontSize}pt;
+          padding:10mm 10mm 0mm 10mm;
+          margin:0mm 0mm;
+        }
         .semester{
             text-align:center;
-            font-size:8pt;
+            font-size:${semesterFontSize}pt;
             width:25%;
             font-family:微软雅黑;
             border-top:2px #000 solid;
@@ -22,7 +56,7 @@
         }
         .blank{
             text-align:center;
-            font-size:8pt;
+            font-size:${semesterFontSize}pt;
             font-family:微软雅黑;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -32,7 +66,7 @@
         }
         .tableclass{
             border-collapse:collapse;
-            font-size:7.5pt;
+            font-size:${contentFontSize}pt;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -40,19 +74,19 @@
         }
         .titlecss{
             text-align:center;
-            font-size:7.5pt;
-            width:250px;
+            font-size:${columTitleFontSize}pt;
+            width:20%;
             font-family:微软雅黑;
         }
         .title{
             text-align:center;
-            font-size:7.5pt;
+            font-size:${columTitleFontSize}pt;
             font-family:微软雅黑;
             width:50px;
         }
         .credits{
 			text-align:center;
-			font-size:7pt;
+			font-size:${columTitleFontSize-0.5}pt;
 			font-family:微软雅黑;
 			width:35px;
 	    }
@@ -61,14 +95,13 @@
     [#assign maxRows = 50/]
     [#assign colmns = 3/]
     [#assign maxCols = 4*colmns/]
-
 [#list students as std]
     [#assign schoolName]${school.enName!}[/#assign]
     [#assign stdTypeName = std.level.name /]
     <div  style="min-width:255mm;padding:0px;margin:0px;[#if std_index>0]PAGE-BREAK-BEFORE: always[/#if]">
     <table  width="100%" valign='top' >
         <tr><td colspan="5" align="center"><h2 style="margin:4mm 0mm 4mm 0mm">${schoolName} &nbsp;${std.state.grade}[#if ((std.beginOn?string("MM"))!"09")=="09"](Fall) Grade[#else](Spring) Grade[/#if] Academic Achievements</h2></td></tr>
-        <tr style="font-size:8pt">
+        <tr style="font-size:${contentFontSize}pt">
          <td>Education：[#if stdTypeName?contains("本科")]Undergraduate[#elseif stdTypeName?contains("专升本")]Top-up Program[#else]Junior College[/#if]</td>
          <td>&nbsp;&nbsp;[#if Minor??]Minor[#else]Major[/#if]：${std.state.major.enName!}</td>
          <td>&nbsp;Student No：${std.user.code}</td>
@@ -79,7 +112,7 @@
     <table width='100%' border="1" id="transcript${std.id}" class="tableclass">
             [#list 1..maxRows as row]
                 [#--此处的tr和td中不能有空格，否则影响js中的nextSibling--]
-                <tr>[#list 0..(maxCols-1) as col]<td id="transcript${std.id}_${row}_${col}" [#if (col+1)%colmns==0] style="border-right:2px #000 solid;min-width:30px" [/#if] [#if col>colmns || col=colmns][#if col%colmns==0 ] width="22%" [#else] style="min-width:30px"[/#if][/#if]>&nbsp;</td>[/#list]</tr>
+                <tr>[#list 0..(maxCols-1) as col]<td id="transcript${std.id}_${row}_${col}" [#if (col+1)%colmns==0] style="border-right:2px #000 solid;min-width:30px" [/#if] [#if col>colmns || col=colmns][#if col%colmns==0 ] width="22%" [#else] style="min-width:30px"[/#if][#else] style="min-width:30px" [/#if]>&nbsp;</td>[/#list]</tr>
             [/#list]
     </table>
     <script>
@@ -282,7 +315,11 @@
         var row = calcRow(index);
         var col = calcCol(index);
         if(row>maxRows || col >= ${maxCols}) {return;}
-        document.getElementById(getCellId(table,row,col)).innerHTML=name;
+        if(name.length>=40){
+          document.getElementById(getCellId(table,row,col)).innerHTML="<font style='font-size:0.8em;'>"+name+"</font>";
+        }else{
+          document.getElementById(getCellId(table,row,col)).innerHTML=name;
+        }
         document.getElementById(getCellId(table,row,col+1)).className="tds";
         document.getElementById(getCellId(table,row,col+2)).className="tds";
         document.getElementById(getCellId(table,row,col+1)).innerHTML=credit;
@@ -303,7 +340,7 @@
     var blocks=new SemesterBlocks(50,semesterList,semesterCourses,2);
     maxRows=blocks.adjust();
     [#assign semester_id=0]
-    [#list grades.get(std)?sort_by(["course","code"])?sort_by(["semester","beginOn"])  as courseGrade]
+    [#list grades.get(std)?sort_by(["course","code"])?sort_by(["semester","beginOn"]) as courseGrade]
         [#if courseGrade.semester.id  != semester_id]
             [#assign semester_id=courseGrade.semester.id]
             addSemester("transcript${std.id}",'${courseGrade.semester.id}','${courseGrade.semester.schoolYear!}'+'[#if courseGrade.semester.name='1'] - 1[#elseif courseGrade.semester.name='2'] - 2[#else]${courseGrade.semester.name}[/#if]');
@@ -341,6 +378,9 @@
     addBlank("transcript${std.id}");
 
     function removeTr(maxRows){
+        if(blankRow<=31){
+           blankRow=31;
+        }
         if(maxRows-blankRow + 1 >0){
             var t1=document.getElementById("transcript${std.id}");
             var maxr =maxRows;
@@ -350,10 +390,13 @@
                 }
             }
         }
+        if(blankRow>=37){//如果空行位于37行（以1开始计算）
+           document.body.style.paddingTop="3mm";
+        }
     }
     removeTr(${maxRows});
     </script>
-  <table width='100%' border=0 valign='bottom' style="font-family:宋体;font-size:8pt;">
+  <table width='100%' border=0 valign='bottom' style="font-size:${contentFontSize}pt;">
 	<tr>
 	<td align='left' id="TD_TC">Credits:${(gpas.get(std).credits)!}</td>
 	<td align='left' id="TD_GPA">GPA:${(gpas.get(std).gpa)!}</td>
