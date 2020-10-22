@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
+import org.beangle.security.Securities;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.edu.base.model.Course;
@@ -129,7 +130,7 @@ public class TranscriptAction extends BaseAction {
           Map<Student, Map<Semester, Integer>> semesterCounts = CollectUtils.newHashMap();
           for (Map.Entry<Student, List<CourseGrade>> entry : stdGradeMaps.entrySet()) {
             Map<Semester, Integer> semesterCount = CollectUtils.newHashMap();
-            semesterCounts.put(entry.getKey(),semesterCount);
+            semesterCounts.put(entry.getKey(), semesterCount);
             for (CourseGrade g : entry.getValue()) {
               semesterCount.compute(g.getSemester(), (s, o) -> {
                 return (o == null) ? 1 : o.intValue() + 1;
@@ -170,6 +171,13 @@ public class TranscriptAction extends BaseAction {
       path = Strings.substringBeforeLast(path, ".ftl");
     }
     return forward(path);
+  }
+
+  private Student getLoginStudent() {
+    OqlBuilder<Student> builder =
+        OqlBuilder.from(Student.class, "std").where("std.user.code = :code", Securities.getUsername());
+    builder.where("std.project.minor=false");
+    return entityDao.search(builder).get(0);
   }
 
   public void setReportTemplateService(ReportTemplateService reportTemplateService) {

@@ -38,6 +38,7 @@
           text-rendering: optimizeLegibility;
           font-family:微软雅黑;
           padding:10mm 10mm 0mm 10mm;
+          margin:0mm 0mm;
         }
         .semester{
             text-align:center;
@@ -393,7 +394,7 @@
     </script>
   <table width='100%' border=0 valign='bottom' style="font-size:${contentFontSize}pt;">
 	<tr>
-	<td align='left' id="TD_TC">总学分:${(gpas.get(std).credits)!}</td>
+	<td align='left' id="TD_TC">修读学分:${(gpas.get(std).credits)!}</td>
 	<td align='left' id="TD_GPA">平均绩点:${(gpas.get(std).gpa)!}</td>
 	<td align='left' id="TD_GP">平均分:${(gpas.get(std).ga)!}</td>
 	<td align='right' >${school.name}教务处</td>

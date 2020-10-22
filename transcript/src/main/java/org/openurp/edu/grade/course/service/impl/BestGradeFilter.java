@@ -21,7 +21,7 @@ package org.openurp.edu.grade.course.service.impl;
 import org.beangle.commons.collection.CollectUtils;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.grade.course.model.CourseGrade;
-import org.openurp.edu.program.plan.model.AlternativeCourse;
+import org.openurp.edu.program.model.AlternativeCourse;
 import org.openurp.edu.program.plan.service.AlternativeCourseService;
 
 import java.text.ParseException;
