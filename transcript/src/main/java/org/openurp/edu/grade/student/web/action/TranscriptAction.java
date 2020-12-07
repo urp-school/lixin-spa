@@ -22,10 +22,12 @@ import com.google.gson.Gson;
 import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
+import org.beangle.security.Securities;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.edu.base.model.Course;
 import org.openurp.edu.base.model.Project;
+import org.openurp.edu.base.model.Semester;
 import org.openurp.edu.base.model.Student;
 import org.openurp.edu.grade.app.model.ReportTemplate;
 import org.openurp.edu.grade.app.service.ReportTemplateService;
@@ -97,39 +99,45 @@ public class TranscriptAction extends BaseAction {
     List<ExchangeInfoCourse> eicList = this.entityDao.search(builder);
     for (TranscriptDataProvider provider : this.dataProviderRegistry.getProviders((String) options.get("providers"))) {
       if (provider.getDataName().equals("grades")) {
-        ExchangeInfoCourse info;
-        List<CourseGrade> cgs;
         Map<Student, List<Long>> subCourseMap = CollectUtils.newHashMap();
         if ((provider instanceof TranscriptPublishedGradeProvider)) {
           Map<Student, List<CourseGrade>> stdGradeMaps = ((TranscriptPublishedGradeProvider) provider).getDatas(students, options, subCourseMap);
-          Iterator localIterator2;
-          if (CollectUtils.isNotEmpty(eicList)) {
-            for (localIterator2 = eicList.iterator(); localIterator2.hasNext(); ) {
-              info = (ExchangeInfoCourse) localIterator2.next();
-              cgs = (List) stdGradeMaps.get(info.getStudent());
-              Set<CourseSemester> cslist = info.getCslist();
-              for (CourseSemester cs : cslist) {
-                Course course = cs.getCourse();
-                boolean flag = true;
-                for (CourseGrade courseGrade : cgs) {
-                  if (((Long) courseGrade.getCourse().getId()).longValue() == ((Long) course.getId()).longValue()) {
-                    flag = false;
-                    break;
-                  }
+          for (ExchangeInfoCourse info : eicList) {
+            List<CourseGrade> cgs = (List) stdGradeMaps.get(info.getStudent());
+            Set<CourseSemester> cslist = info.getCslist();
+            for (CourseSemester cs : cslist) {
+              Course course = cs.getCourse();
+              boolean flag = true;
+              for (CourseGrade courseGrade : cgs) {
+                if (((Long) courseGrade.getCourse().getId()).longValue() == ((Long) course.getId()).longValue()) {
+                  flag = false;
+                  break;
                 }
-                if (flag) {
-                  CourseGrade grade = new CourseGrade();
-                  grade.setCourse(course);
-                  grade.setSemester(cs.getSemester());
-                  grade.setStd(info.getStudent());
-                  grade.setScoreText("免修");
-                  grade.setScore(Float.valueOf(0.0F));
-                  grade.setCourseTakeType((CourseTakeType) this.codeService.getCode(CourseTakeType.class, Integer.valueOf(1)));
-                  cgs.add(grade);
-                }
+              }
+              if (flag) {
+                CourseGrade grade = new CourseGrade();
+                grade.setCourse(course);
+                grade.setSemester(cs.getSemester());
+                grade.setStd(info.getStudent());
+                grade.setScoreText("免修");
+                grade.setScore(Float.valueOf(0.0F));
+                grade.setCourseTakeType((CourseTakeType) this.codeService.getCode(CourseTakeType.class, Integer.valueOf(1)));
+                cgs.add(grade);
               }
             }
           }
+
+          Map<Student, Map<Semester, Integer>> semesterCounts = CollectUtils.newHashMap();
+          for (Map.Entry<Student, List<CourseGrade>> entry : stdGradeMaps.entrySet()) {
+            Map<Semester, Integer> semesterCount = CollectUtils.newHashMap();
+            semesterCounts.put(entry.getKey(), semesterCount);
+            for (CourseGrade g : entry.getValue()) {
+              semesterCount.compute(g.getSemester(), (s, o) -> {
+                return (o == null) ? 1 : o.intValue() + 1;
+              });
+            }
+          }
+          put("semesterCounts", semesterCounts);
           put("grades", stdGradeMaps);
           put("subCourseMap", subCourseMap);
         }
@@ -143,8 +151,8 @@ public class TranscriptAction extends BaseAction {
     put("RESTUDY", Integer.valueOf(3));
     put("school", me.getProject().getSchool());
     put("students", students);
-    put("GA", new GradeType( GradeType.GA_ID));
-    put("MAKEUP_GA", new GradeType( GradeType.MAKEUP_GA_ID));
+    put("GA", new GradeType(GradeType.GA_ID));
+    put("MAKEUP_GA", new GradeType(GradeType.MAKEUP_GA_ID));
     put("printFlag", Boolean.valueOf(true));
     String format = get("format");
     Project project = me.getProject();
@@ -163,6 +171,13 @@ public class TranscriptAction extends BaseAction {
       path = Strings.substringBeforeLast(path, ".ftl");
     }
     return forward(path);
+  }
+
+  private Student getLoginStudent() {
+    OqlBuilder<Student> builder =
+        OqlBuilder.from(Student.class, "std").where("std.user.code = :code", Securities.getUsername());
+    builder.where("std.project.minor=false");
+    return entityDao.search(builder).get(0);
   }
 
   public void setReportTemplateService(ReportTemplateService reportTemplateService) {

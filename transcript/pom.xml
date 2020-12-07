@@ -3,18 +3,18 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-java-parent</artifactId>
-    <version>0.3.2</version>
+    <version>0.4.3</version>
   </parent>
   <groupId>net.openurp.lixin.edu</groupId>
   <artifactId>openurp-lixin-edu-grade-transcript</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>war</packaging>
   <name>Openurp Edu Grade Student</name>
 
   <properties>
     <bundle.symbolicName>org.openurp.edu.grade.studentapp</bundle.symbolicName>
     <bundle.namespace>org.openurp.edu.grade</bundle.namespace>
-	  <openurp.version>0.0.2-SNAPSHOT</openurp.version>
+	  <openurp.version>0.3.0-SNAPSHOT</openurp.version>
   </properties>
 
   <dependencies>
@@ -32,16 +32,6 @@
       <groupId>org.openurp.edu.graduation</groupId>
       <artifactId>openurp-edu-graduation-core4j</artifactId>
       <version>${openurp.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <scope>runtime</scope>
     </dependency>
   </dependencies>
 </project>
