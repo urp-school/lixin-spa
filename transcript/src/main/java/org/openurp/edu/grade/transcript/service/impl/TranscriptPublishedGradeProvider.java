@@ -19,7 +19,7 @@
 package org.openurp.edu.grade.transcript.service.impl;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Student;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.course.service.CourseGradeProvider;
 import org.openurp.edu.grade.course.service.impl.BestGradeFilter;

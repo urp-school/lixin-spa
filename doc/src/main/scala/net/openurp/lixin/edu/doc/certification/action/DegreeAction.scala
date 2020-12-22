@@ -33,9 +33,11 @@ class DegreeAction extends ActionSupport with EntityAction[Graduation] with Proj
 
 	def index(): View = {
 		val std = getUser(classOf[Student])
-		val graduation = entityDao.findBy(classOf[Graduation], "std", List(std))
-		put("graduation", graduation)
+		val graduations = entityDao.findBy(classOf[Graduation], "std", List(std))
 		put("std", std)
+		graduations.foreach(graduation=>{
+			put("graduation", graduation)
+		})
 		forward()
 	}
 

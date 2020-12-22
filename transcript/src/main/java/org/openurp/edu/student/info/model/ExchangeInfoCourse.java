@@ -24,8 +24,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.model.Course;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Course;
+import org.openurp.base.edu.model.Student;
 
 @Entity(name="org.openurp.edu.student.info.model.ExchangeInfoCourse")
 public class ExchangeInfoCourse

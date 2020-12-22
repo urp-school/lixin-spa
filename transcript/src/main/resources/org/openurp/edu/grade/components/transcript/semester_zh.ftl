@@ -36,7 +36,7 @@
         body{
           font-kerning: normal;
           text-rendering: optimizeLegibility;
-          font-family:微软雅黑;
+          font-family:Microsoft YaHei;
           padding:10mm 10mm 0mm 10mm;
           margin:0mm 0mm;
         }
@@ -44,7 +44,7 @@
             text-align:center;
             font-size:${semesterFontSize}pt;
             width:25%;
-            font-family:楷体;
+            font-family:KaiTi;
             border-top:2px #000 solid;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
@@ -53,7 +53,7 @@
         .blank{
             text-align:center;
             font-size:${semesterFontSize}pt;
-            font-family:楷体;
+            font-family:KaiTi;
             border-right:2px #000 solid;
             border-left:2px #000 solid;
         }
@@ -72,17 +72,17 @@
             text-align:center;
             font-size:${columTitleFontSize}pt;
             width:20%;
-            font-family:楷体;
+            font-family:KaiTi;
         }
         .titlescore{
         	text-align:center;
             font-size:${columTitleFontSize}pt;
-            font-family:楷体;
+            font-family:KaiTi;
         }
         .title{
             text-align:center;
             font-size:${columTitleFontSize}pt;
-            font-family:楷体;
+            font-family:KaiTi;
         }
     </style>
     [#--最大成绩行数--]
@@ -100,7 +100,7 @@
         <tr style="font-size:${contentFontSize}pt">
          <td >层&nbsp;&nbsp;&nbsp;&nbsp;次：${std.level.name}</td>
          <td >专&nbsp;&nbsp;&nbsp;&nbsp;业：${(std.major.name)?default("")}</td>
-         <td >姓&nbsp;&nbsp;&nbsp;&nbsp;名：${std.name}</td>
+         <td >姓&nbsp;&nbsp;&nbsp;&nbsp;名：${std.user.name}</td>
          <td >学&nbsp;&nbsp;&nbsp;&nbsp;号：${((std.user.code)?default(""))?trim}</td>
          <td >性别：${((std.person.gender.name)?default(""))?trim}</td>
         </tr>
@@ -401,6 +401,11 @@
 	<td align='right' width="100px" >${b.now?string('yyyy年MM月dd日')}</td>
 	</tr>
 	</table>
+			[#if signature??]
+			<div style="float:right;text-align: right;">
+				<img src="${base}/static/images/grade_sig.jpg" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;">
+			</div>
+			[/#if]
    </div>
 [/#list]
 </body>

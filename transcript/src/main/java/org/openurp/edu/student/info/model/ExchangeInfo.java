@@ -23,7 +23,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.model.Student;
+import org.openurp.base.edu.model.Student;
 
 @Entity(name="org.openurp.edu.student.info.model.ExchangeInfo")
 public class ExchangeInfo

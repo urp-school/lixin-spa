@@ -21,9 +21,9 @@ package org.openurp.edu.student.info.model;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import org.beangle.commons.entity.pojo.LongIdObject;
-import org.openurp.edu.base.model.Semester;
-import org.openurp.edu.base.code.model.CourseType;
-import org.openurp.edu.base.model.Course;
+import org.openurp.base.edu.code.model.CourseType;
+import org.openurp.base.edu.model.Course;
+import org.openurp.base.edu.model.Semester;
 
 @Entity(name="org.openurp.edu.student.info.model.CourseSemester")
 public class CourseSemester
