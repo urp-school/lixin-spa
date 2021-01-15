@@ -16,14 +16,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.openurp.lixin.edu.doc.certification.action
+package net.openurp.lixin.edu.doc.student.action
 
-import net.openurp.lixin.edu.doc.certification.service.GradeConverter
+import net.openurp.lixin.edu.doc.student.service.GradeConverter
 import org.beangle.webmvc.api.action.ActionSupport
 import org.beangle.webmvc.api.view.View
 import org.beangle.webmvc.entity.action.EntityAction
-import org.openurp.edu.base.model.Student
-import org.openurp.edu.web.ProjectSupport
+import org.openurp.base.edu.model.Student
+import org.openurp.boot.edu.helper.ProjectSupport
 
 class CertificateAction extends ActionSupport with EntityAction[Student] with ProjectSupport {
 

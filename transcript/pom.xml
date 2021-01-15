@@ -15,7 +15,7 @@
     <bundle.symbolicName>org.openurp.edu.grade.studentapp</bundle.symbolicName>
     <bundle.namespace>org.openurp.edu.grade</bundle.namespace>
 	  <openurp.version>0.3.0-SNAPSHOT</openurp.version>
-	  <openurp.api.version>0.20.2-SNAPSHOT</openurp.api.version>
+	  <openurp.api.version>0.20.4</openurp.api.version>
   </properties>
 
   <dependencies>

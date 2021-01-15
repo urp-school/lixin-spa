@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package net.openurp.lixin.edu.doc.certification.action
+package net.openurp.lixin.edu.doc.admin.action
 
 import net.openurp.lixin.edu.doc.web.decorator.WkPdfGenerator
 import org.beangle.cdi.bind.BindModule
@@ -24,8 +24,6 @@ import org.beangle.cdi.bind.BindModule
 class DefaultModule extends BindModule {
 
   protected override def binding(): Unit = {
-    bind(classOf[CertificateAction])
-    bind(classOf[StudentAction])
     bind(classOf[GraduationAction],classOf[DegreeAction])
     bind("web.Decorator.wkpdf", classOf[WkPdfGenerator])
   }

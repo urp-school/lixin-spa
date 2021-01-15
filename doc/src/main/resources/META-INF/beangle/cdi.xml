@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <cdi>
   <container name="web">
-    <module class="net.openurp.lixin.edu.doc.certification.action.DefaultModule"/>
+    <module class="net.openurp.lixin.edu.doc.student.action.DefaultModule"/>
+    <module class="net.openurp.lixin.edu.doc.admin.action.DefaultModule"/>
   </container>
 </cdi>
