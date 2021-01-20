@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-[#if graduation?? ]
+[#if graduation?? && graduation.degree??]
 <html lang="zh_CN">
   <head>
     <title></title>
@@ -46,6 +46,6 @@
       </div>
     </div>
  </body>
-  [#else ]目前不存在学位证书翻译
+  [#else ]目前不支持下载
   [/#if]
 [@b.foot/]

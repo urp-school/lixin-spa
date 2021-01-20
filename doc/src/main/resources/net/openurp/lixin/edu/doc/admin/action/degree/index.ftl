@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-[#if graduation?? ]
+[#if graduation?? && graduation.degree??]
 <html lang="zh_CN">
   <head>
     <title></title>
@@ -28,7 +28,7 @@
             <td width="45%">
             </td>
             <td align="left">
-              <p style="margin-top:60px"><span style="font-size:12pt;font-family: 'Times New Roman';"><b>President</b>:${graduation.president!}</span></p>
+              <p style="margin-top:60px"><span style="font-size:12pt;font-family: 'Times New Roman';"><b>President</b>:${graduation.president}</span></p>
               <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';"><b>Organization</b>:Shanghai Lixin University of Accounting and Finance</span></p>
               <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';"><b>Chairman of Academic Degree Evaluation Committee</b></span></p>
               <img src="${base}/static/images/student_sig.jpg" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;float:right;">
@@ -46,6 +46,6 @@
       </div>
     </div>
  </body>
-  [#else ]目前不存在学位证书翻译
+  [#else ]目前不支持下载
   [/#if]
 [@b.foot/]

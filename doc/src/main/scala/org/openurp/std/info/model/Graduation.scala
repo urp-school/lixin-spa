@@ -57,6 +57,6 @@ class Graduation extends LongId with Updated {
 	var foreignLangPassedOn: Option[LocalDate] = None
 
 	/** 校长姓名 */
-	var President: Option[String] = None
+	var president: Option[String] = None
 
 }
