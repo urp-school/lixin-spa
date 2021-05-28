@@ -36,7 +36,7 @@
           </tr>
           <tr>
             <td width="45%" align="left">
-              <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';">Certificate No.:${graduation.serialNo!}</span></p>
+              <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';">Certificate No.:${graduation.diplomaNo!}</span></p>
             </td>
             <td align="center">
               <p style="margin-top:10px"><span style="font-size:12pt;text-align: right;font-family: 'Times New Roman';">Date:${(graduation.graduateOn?string("yyyy-MM-dd"))!}</span></p>
