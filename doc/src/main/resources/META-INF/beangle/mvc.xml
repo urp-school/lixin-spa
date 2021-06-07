@@ -12,5 +12,6 @@
   </profile>
   <static>
     <bundle name="urp" version="default"/>
+    <bundle name="local" version="default"/>
   </static>
 </mvc>

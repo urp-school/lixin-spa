@@ -29,7 +29,7 @@
         <p style="margin-top:60px"><span style="font-size:16pt;font-family: 'Times New Roman';"><b>Academic Affairs Office</b></span></p>
         <p style="margin-top:10px"><span style="font-size:16pt;font-family: 'Times New Roman';"><b>Shanghai Lixin University of Accounting and Finance</b></span></p>
         <p style="margin-top:20px"><span style="font-size:16pt;font-family: 'Times New Roman';"><b>Date:${b.now?string("yyyy-MM-dd")}</b></span></p>
-        <img src="${base}/static/images/student_sig.jpg" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;">
+        <img src="${b.static_url('local','images/student_sig.jpg')}" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;">
       </div>
     </div>
 

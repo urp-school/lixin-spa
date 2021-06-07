@@ -181,7 +181,7 @@ public class TranscriptAction extends BaseAction {
 	private Student getLoginStudent() {
 		OqlBuilder<Student> builder =
         OqlBuilder.from(Student.class, "std").where("std.user.code = :code", Securities.getUsername());
-//			OqlBuilder.from(Student.class, "std").where("std.user.code = :code", "2012134135");
+//			OqlBuilder.from(Student.class, "std").where("std.user.code = :code", "2016142539");
 		builder.where("std.project.minor=false");
 		return entityDao.search(builder).get(0);
 	}

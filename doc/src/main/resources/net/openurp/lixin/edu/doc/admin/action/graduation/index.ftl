@@ -30,7 +30,7 @@
             <td align="left">
               <p style="margin-top:60px"><span style="font-size:12pt;font-family: 'Times New Roman';"><b>President</b>:${graduation.president!}</span></p>
               <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';"><b>Organization</b>:Shanghai Lixin University of Accounting and Finance</span></p>
-              <img src="${base}/static/images/student_sig.jpg" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;float:right;">
+              <img src="${b.static_url('local','images/student_sig.jpg')}" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;float:right;">
             </td>
           </tr>
           <tr>
