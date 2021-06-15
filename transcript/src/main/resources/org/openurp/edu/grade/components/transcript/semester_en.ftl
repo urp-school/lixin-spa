@@ -407,7 +407,7 @@
 	</table>
 			[#if signature??]
 			<div style="float:right;text-align: right;">
-				<img src="${base}/static/images/grade_sig.jpg" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;">
+				<img src="https://xyzm.lixin.edu.cn/static/local/default/images/grade_sig.jpg" style="height:42mm;width:42mm;margin-left: 30mm;margin-top: -130px;">
 			</div>
 			[/#if]
    </div>
