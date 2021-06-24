@@ -35,12 +35,12 @@
           </tr>
           <tr>
             <td width="45%" align="left">
-              <p style="margin-top:60px"><span style="font-size:12pt;font-family: 'Times New Roman';">Certificate Serial No.:${graduation.code!}</span></p>
+              <p style="margin-top:60px"><span style="font-size:12pt;font-family: 'Times New Roman';">Certificate Serial No.:${graduation.serialNo!}</span></p>
             </td>
           </tr>
           <tr>
             <td width="45%" align="left">
-              <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';">Certificate [#list 1..9 as i]&nbsp;[/#list] No.:${graduation.serialNo!}</span></p>
+              <p style="margin-top:10px"><span style="font-size:12pt;font-family: 'Times New Roman';">Certificate [#list 1..9 as i]&nbsp;[/#list] No.:${graduation.code!}</span></p>
             </td>
             <td align="center">
               <p style="margin-top:10px"><span style="font-size:12pt;text-align: right;font-family: 'Times New Roman';">Date:${(graduation.graduateOn?string("yyyy-MM-dd"))!}</span></p>
