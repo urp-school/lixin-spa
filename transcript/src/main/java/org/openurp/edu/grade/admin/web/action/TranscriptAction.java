@@ -99,7 +99,7 @@ public class TranscriptAction extends BaseAction {
 		OqlBuilder<ExchangeInfoCourse> builder = OqlBuilder.from(ExchangeInfoCourse.class, "eic");
 		builder.where("eic.student=:me", me);
 		List<ExchangeInfoCourse> eicList = this.entityDao.search(builder);
-		for (TranscriptDataProvider provider : this.dataProviderRegistry.getProviders((String) options.get("providers"))) {
+		for (TranscriptDataProvider provider : this.dataProviderRegistry.getProviders(options.get("providers"))) {
 			if (provider.getDataName().equals("grades")) {
 				Map<Student, List<Long>> subCourseMap = CollectUtils.newHashMap();
 				if ((provider instanceof TranscriptPublishedGradeProvider)) {
@@ -122,8 +122,9 @@ public class TranscriptAction extends BaseAction {
 								grade.setSemester(cs.getSemester());
 								grade.setStd(info.getStudent());
 								grade.setScoreText("免修");
-								grade.setScore(Float.valueOf(0.0F));
-								grade.setCourseTakeType((CourseTakeType) this.codeService.getCode(CourseTakeType.class, Integer.valueOf(1)));
+								grade.setScore(null);
+								grade.setGp(null);
+								grade.setCourseTakeType(codeService.getCode(CourseTakeType.class, Integer.valueOf(5)));
 								cgs.add(grade);
 							}
 						}

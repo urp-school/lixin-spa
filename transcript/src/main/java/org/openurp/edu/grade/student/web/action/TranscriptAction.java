@@ -82,7 +82,6 @@ public class TranscriptAction extends BaseAction {
 
 	public String index() throws Exception {
 		Student me = getLoginStudent();
-		String a = System.getProperty("beangle.data.orm.global_schema");
 		ReportTemplate template = null;
 		String templateName = get("template");
 		if (null != templateName) {
@@ -122,8 +121,9 @@ public class TranscriptAction extends BaseAction {
 								grade.setSemester(cs.getSemester());
 								grade.setStd(info.getStudent());
 								grade.setScoreText("免修");
-								grade.setScore(Float.valueOf(0.0F));
-								grade.setCourseTakeType((CourseTakeType) this.codeService.getCode(CourseTakeType.class, Integer.valueOf(1)));
+								grade.setScore(null);
+								grade.setGp(null);
+								grade.setCourseTakeType(codeService.getCode(CourseTakeType.class, Integer.valueOf(5)));
 								cgs.add(grade);
 							}
 						}
@@ -182,7 +182,6 @@ public class TranscriptAction extends BaseAction {
 	private Student getLoginStudent() {
 		OqlBuilder<Student> builder =
 			OqlBuilder.from(Student.class, "std").where("std.user.code = :code", Securities.getUsername());
-//			OqlBuilder.from(Student.class, "std").where("std.user.code = :code", "2015191148");
 		builder.where("std.project.id=5");
 		builder.where("std.project.minor=false");
 		List<Student> students = entityDao.search(builder);
