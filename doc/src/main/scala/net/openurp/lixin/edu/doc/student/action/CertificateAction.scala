@@ -29,14 +29,13 @@ class CertificateAction extends ActionSupport with EntityAction[Student] with Pr
 
   def zh(): View = {
     val std = getUser(classOf[Student])
-//    put("grade", GradeConverter.getGrade(std))
     put("std", std)
     forward()
   }
 
   def en(): View = {
     val std = getUser(classOf[Student])
-    put("grade",  GradeConverter.getGrade(std))
+    put("grade", GradeConverter.getGrade(std))
     put("std", std)
     forward()
   }
