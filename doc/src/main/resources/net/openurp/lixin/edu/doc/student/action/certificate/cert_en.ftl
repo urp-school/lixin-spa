@@ -41,5 +41,5 @@ student majoring in ${(std.state.major.enName)!'__'} since ${std.beginOn?string(
 . ${getAppOne(std.person.gender)} student ID is ${std.user.code} and ${getApp(std.person.gender)} is current[#t/]
   ly studying in [#t/]
   the ${gradeNameMap[grade?string]} year of ${std.duration}-year educational system in Shanghai Lixin University of Accounting and Finance.[#t/]
-  ${getAppBig(std.person.gender)} is supposed to graduate on ${(std.state.enOn?string('MMMMM,yyyy'))!(std.graduateOn?string('MMMMM,yyyy'))} under normal circumstance.[#t/]
+  ${getAppBig(std.person.gender)} is supposed to graduate on ${(std.state.endOn?string('MMMMM,yyyy'))!(std.graduateOn?string('MMMMM,yyyy'))!} under normal circumstance.[#t/]
 </p>
