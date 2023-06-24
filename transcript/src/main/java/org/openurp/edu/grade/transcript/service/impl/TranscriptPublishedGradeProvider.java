@@ -19,7 +19,7 @@
 package org.openurp.edu.grade.transcript.service.impl;
 
 import org.beangle.commons.collection.CollectUtils;
-import org.openurp.base.edu.model.Student;
+import org.openurp.base.std.model.Student;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.course.service.CourseGradeProvider;
 import org.openurp.edu.grade.course.service.impl.BestGradeFilter;
@@ -31,8 +31,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class TranscriptPublishedGradeProvider
-        implements TranscriptDataProvider {
+public class TranscriptPublishedGradeProvider implements TranscriptDataProvider {
   private GradeFilterRegistry gradeFilterRegistry;
   private CourseGradeProvider courseGradeProvider;
 

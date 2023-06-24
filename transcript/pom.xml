@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.openurp</groupId>
     <artifactId>openurp-java-parent</artifactId>
-    <version>0.4.6</version>
+    <version>0.4.11</version>
   </parent>
   <groupId>net.openurp.lixin.edu</groupId>
   <artifactId>openurp-lixin-edu-grade-transcript</artifactId>
@@ -12,32 +12,18 @@
   <name>Openurp Edu Grade Student</name>
 
   <properties>
-    <bundle.symbolicName>org.openurp.edu.grade.studentapp</bundle.symbolicName>
+    <bundle.symbolicName>org.openurp.edu.grade.transcript</bundle.symbolicName>
     <bundle.namespace>org.openurp.edu.grade</bundle.namespace>
-	  <openurp.version>0.3.0-SNAPSHOT</openurp.version>
-	  <openurp.api.version>0.22.2-SNAPSHOT</openurp.api.version>
+    <java.version>17</java.version>
+    <beangle3.version>3.10.0</beangle3.version>
+    <edu.api.version>0.31.4-SNAPSHOT</edu.api.version>
   </properties>
 
   <dependencies>
     <dependency>
-      <groupId>org.openurp.edu.nav</groupId>
-      <artifactId>openurp-edu-nav-default</artifactId>
-      <version>${openurp.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openurp.edu.grade</groupId>
-      <artifactId>openurp-edu-grade-web</artifactId>
-      <version>${openurp.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openurp.edu.graduation</groupId>
-      <artifactId>openurp-edu-graduation-core4j</artifactId>
-      <version>${openurp.version}</version>
-    </dependency>
-    <dependency>
       <groupId>org.openurp.edu</groupId>
-      <artifactId>openurp-edu-api4j</artifactId>
-      <version>${openurp.api.version}</version>
+      <artifactId>openurp-edu-web4j</artifactId>
+      <version>${edu.api.version}</version>
     </dependency>
     <dependency>
       <groupId>jakarta.servlet</groupId>

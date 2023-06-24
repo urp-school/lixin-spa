@@ -100,8 +100,8 @@
         <tr style="font-size:${contentFontSize}pt">
          <td >层&nbsp;&nbsp;&nbsp;&nbsp;次：${std.level.name}</td>
          <td >专&nbsp;&nbsp;&nbsp;&nbsp;业：${(std.major.name)?default("")}</td>
-         <td >姓&nbsp;&nbsp;&nbsp;&nbsp;名：${std.user.name}</td>
-         <td >学&nbsp;&nbsp;&nbsp;&nbsp;号：${((std.user.code)?default(""))?trim}</td>
+         <td >姓&nbsp;&nbsp;&nbsp;&nbsp;名：${std.name}</td>
+         <td >学&nbsp;&nbsp;&nbsp;&nbsp;号：${((std.code)?default(""))?trim}</td>
          <td >性别：${((std.person.gender.name)?default(""))?trim}</td>
         </tr>
     </table>
@@ -363,7 +363,7 @@
         	[/#if]
         [/#list]
 
-        addScore("transcript${std.id}" ,'${courseGrade.course.name}','${courseGrade.course.code[0..0]}','${courseGrade.course.credits!}',
+        addScore("transcript${std.id}" ,'${courseGrade.course.name}','${courseGrade.course.code[0..0]}','${courseGrade.course.defaultCredits!}',
         [#if !exchangeCourse(std,courseGrade.course,courseGrade.semester)]
         '${courseGrade.scoreText!}',
         [#else]

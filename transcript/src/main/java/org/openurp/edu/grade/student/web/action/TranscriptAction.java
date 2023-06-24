@@ -23,15 +23,14 @@ import org.beangle.commons.collection.CollectUtils;
 import org.beangle.commons.dao.query.builder.OqlBuilder;
 import org.beangle.commons.lang.Strings;
 import org.beangle.security.Securities;
-import org.openurp.base.model.User;
+import org.openurp.base.std.model.Student;
 import org.openurp.code.edu.model.CourseTakeType;
 import org.openurp.code.edu.model.GradeType;
 import org.openurp.base.edu.model.Course;
 import org.openurp.base.edu.model.Project;
 import org.openurp.base.edu.model.Semester;
-import org.openurp.base.edu.model.Student;
-import org.openurp.edu.grade.app.model.ReportTemplate;
-import org.openurp.edu.grade.app.service.ReportTemplateService;
+import org.openurp.edu.grade.app.service.TranscriptTemplateService;
+import org.openurp.edu.grade.config.TranscriptTemplate;
 import org.openurp.edu.grade.course.model.CourseGrade;
 import org.openurp.edu.grade.transcript.service.TranscriptDataProvider;
 import org.openurp.edu.grade.transcript.service.impl.SpringTranscriptDataProviderRegistry;
@@ -47,7 +46,7 @@ import java.util.*;
  */
 public class TranscriptAction extends BaseAction {
 
-	private ReportTemplateService reportTemplateService;
+	private TranscriptTemplateService transcriptTemplateService;
 
 	private SpringTranscriptDataProviderRegistry dataProviderRegistry;
 
@@ -56,9 +55,9 @@ public class TranscriptAction extends BaseAction {
 		Student me = getLoginStudent();
 		Date now = new Date(System.currentTimeMillis());
 		List<Student> students = Collections.singletonList(me);
-		ReportTemplate template = null;
+		TranscriptTemplate template = null;
 		String templateName = get("template");
-		if (null != templateName) template = reportTemplateService.getTemplate(me.getProject(), templateName);
+		if (null != templateName) template = transcriptTemplateService.getTemplate(me.getProject(), templateName);
 		Map<String, String> options = CollectUtils.newHashMap();
 		if (null != template) options = new Gson().fromJson(template.getOptions(), Map.class);
 		if (null == options) options = CollectUtils.newHashMap();
@@ -82,10 +81,10 @@ public class TranscriptAction extends BaseAction {
 
 	public String index() throws Exception {
 		Student me = getLoginStudent();
-		ReportTemplate template = null;
+		TranscriptTemplate template = null;
 		String templateName = get("template");
 		if (null != templateName) {
-			template = this.reportTemplateService.getTemplate(me.getProject(), templateName);
+			template = this.transcriptTemplateService.getTemplate(me.getProject(), templateName);
 		}
 		Map<String, String> options = CollectUtils.newHashMap();
 		if (null != template) {
@@ -181,7 +180,7 @@ public class TranscriptAction extends BaseAction {
 
 	private Student getLoginStudent() {
 		OqlBuilder<Student> builder =
-			OqlBuilder.from(Student.class, "std").where("std.user.code = :code", Securities.getUsername());
+			OqlBuilder.from(Student.class, "std").where("std.code = :code", Securities.getUsername());
 		builder.where("std.project.id=5");
 		builder.where("std.project.minor=false");
 		List<Student> students = entityDao.search(builder);
@@ -189,8 +188,8 @@ public class TranscriptAction extends BaseAction {
 		else return students.get(0);
 	}
 
-	public void setReportTemplateService(ReportTemplateService reportTemplateService) {
-		this.reportTemplateService = reportTemplateService;
+	public void setTranscriptTemplateService(TranscriptTemplateService transcriptTemplateService) {
+		this.transcriptTemplateService = transcriptTemplateService;
 	}
 
 	public void setDataProviderRegistry(SpringTranscriptDataProviderRegistry dataProviderRegistry) {

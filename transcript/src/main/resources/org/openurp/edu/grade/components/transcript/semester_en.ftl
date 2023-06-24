@@ -104,7 +104,7 @@
         <tr style="font-size:${contentFontSize}pt">
          <td>Education：[#if stdTypeName?contains("本科")]Undergraduate[#elseif stdTypeName?contains("专升本")]Top-up Program[#else]Junior College[/#if]</td>
          <td>&nbsp;&nbsp;[#if Minor??]Minor[#else]Major[/#if]：${std.state.major.enName!}</td>
-         <td>&nbsp;Student No：${std.user.code}</td>
+         <td>&nbsp;Student No：${std.code}</td>
          <td>&nbsp;Name：${std.person.phoneticName!}</td>
          <td>&nbsp;Gender：${std.person.gender.enName!}</td>
         </tr>
@@ -367,7 +367,7 @@
         		[#assign subCourseCode=subCourseCode+"_"]
         	[/#if]
         [/#list]
-        addScore("transcript${std.id}" ,'${courseName}','${courseGrade.course.code[0..0]}','${courseGrade.course.credits!}',
+        addScore("transcript${std.id}" ,'${courseName}','${courseGrade.course.code[0..0]}','${courseGrade.course.defaultCredits!}',
         [#if !exchangeCourse(std,courseGrade.course,courseGrade.semester)]
        		 '${FiveLevelNames[scoreText]?default(scoreText)}',
        	[#else]

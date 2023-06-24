@@ -91,6 +91,7 @@ public class DefaultTableNamingStrategy implements TableNamingStrategy {
         if (null != System.getProperty("beangle.data.orm.global_schema")) {
           schema = System.getProperty("beangle.data.orm.global_schema");
         }
+        schema="openurp";
         if (Strings.contains(prefix, ",")) {
           abbreviationStr = Strings.substringAfter(prefix, ",").toLowerCase();
           prefix = Strings.substringBefore(prefix, ",");
